@@ -1,0 +1,15 @@
+/* app.component.css */
+
+#menu {
+    transition: max-height 0.3s ease;
+  }
+  
+  #menu.hidden {
+    max-height: 0;
+    overflow: hidden;
+  }
+  
+  #menu.visible {
+    max-height: 500px; /* Ajustez selon vos besoins */
+  }
+  

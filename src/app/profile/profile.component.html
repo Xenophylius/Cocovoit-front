@@ -1,0 +1,57 @@
+<div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6">Profil de l'utilisateur</h1>
+    
+    <div *ngIf="!isEditing">
+      <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
+        <h2 class="text-xl font-semibold text-gray-800 mb-2">Informations personnelles</h2>
+        <p><strong class="font-medium">Prénom:</strong> {{ userProfile?.firstname }}</p>
+        <p><strong class="font-medium">Nom:</strong> {{ userProfile?.lastname }}</p>
+        <p><strong class="font-medium">Email:</strong> {{ userProfile?.email }}</p>
+      </div>
+  
+      <div class="mt-6 text-center">
+        <button (click)="toggleEdit()" class="bg-teal-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50">
+          Modifier le profil
+        </button>
+      </div>
+    </div>
+  
+    <div *ngIf="isEditing">
+      <form [formGroup]="profileForm" (ngSubmit)="saveChanges()" class="space-y-4">
+        <div class="bg-gray-100 p-4 rounded-lg shadow-inner">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Modifier les informations personnelles</h2>
+          <div class="mb-4">
+            <label for="firstname" class="block text-sm font-medium text-gray-700">Prénom</label>
+            <input id="firstname" formControlName="firstname" type="text" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+            <div *ngIf="profileForm.get('firstname')?.invalid && (profileForm.get('firstname')?.dirty || profileForm.get('firstname')?.touched)" class="text-red-500 text-sm">
+              Le prénom est requis.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="lastname" class="block text-sm font-medium text-gray-700">Nom</label>
+            <input id="lastname" formControlName="lastname" type="text" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+            <div *ngIf="profileForm.get('lastname')?.invalid && (profileForm.get('lastname')?.dirty || profileForm.get('lastname')?.touched)" class="text-red-500 text-sm">
+              Le nom est requis.
+            </div>
+          </div>
+          <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+            <input id="email" formControlName="email" type="email" class="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-teal-500 focus:border-teal-500 sm:text-sm" />
+            <div *ngIf="profileForm.get('email')?.invalid && (profileForm.get('email')?.dirty || profileForm.get('email')?.touched)" class="text-red-500 text-sm">
+              Un email valide est requis.
+            </div>
+          </div>
+        </div>
+  
+        <div class="mt-6 text-center">
+          <button type="submit" class="bg-teal-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50">
+            Sauvegarder les modifications
+          </button>
+          <button (click)="toggleEdit()" type="button" class="ml-4 bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50">
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

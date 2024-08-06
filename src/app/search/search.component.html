@@ -1,0 +1,69 @@
+<div class="bg-white h-[60vh] flex justify-around items-center">
+  <!-- Formulaire -->
+  <div class="w-full sm:w-1/4 px-2">
+    <div class="bg-white p-6 rounded-lg shadow-lg h-full">
+      <h2 class="text-2xl font-bold mb-4 text-center">Recherche un trajet</h2>
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="space-y-4">
+        <div>
+          <input
+            type="text"
+            formControlName="from"
+            placeholder="De : "
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            formControlName="to"
+            placeholder="À :"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+          />
+        </div>
+        <div>
+          <input
+            type="date"
+            formControlName="date"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+          />
+        </div>
+        <div class="flex justify-center">
+          <button
+            type="submit"
+            class="bg-[#0D9488] text-white text-xl font-bold py-3 px-6 rounded-lg hover:bg-[#0c8c80]"
+          >
+            Rechercher
+          </button>
+        </div>
+      </form>
+      <!-- Message quand aucun résultat -->
+      <div *ngIf="noResultsMessage" class="mt-4 text-center text-red-500">
+        {{ noResultsMessage }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Résultats de la recherche -->
+  <div *ngIf="showResults" class="w-full sm:w-5/12">
+    <div class="bg-ABC2BF p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-bold mb-4 text-center">Résultats de la recherche</h2>
+      <div *ngFor="let trip of trips" class="bg-white p-4 mb-4 rounded-lg shadow-lg cursor-pointer hover:bg-gray-100" (click)="viewTrip(trip.id)">
+        <div class="flex justify-between items-center">
+          <div class="font-bold text-lg">{{ trip.starting_point }} à {{ trip.ending_point }}</div>
+          <div class="text-gray-700">
+            Départ : {{ trip.starting_at | date:'fullDate' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image -->
+  <div *ngIf="!showResults" class="hidden sm:block w-5/12">
+    <img
+      src="images/covoiturage.jpg"
+      alt="Covoiturage"
+      class="h-full w-full object-cover"
+    />
+  </div>
+</div>

@@ -1,0 +1,75 @@
+<div class="flex items-center justify-center min-h-screen p-6 bg-gray-100">
+    <div class="w-full max-w-2xl bg-white p-8 rounded-lg shadow-md">
+    
+    <h2 class="text-2xl font-bold mb-6 text-[#0D9488]">Inscription</h2>
+  
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <div class="mb-4">
+        <label for="lastname" class="block text-sm font-medium text-gray-700">Nom</label>
+        <input
+          id="lastname"
+          formControlName="lastname"
+          type="text"
+          placeholder="Nom"
+          class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+        />
+        <div *ngIf="registerForm.get('lastname')?.invalid && registerForm.get('lastname')?.touched" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('lastname')?.errors?.['required']">Nom est requis.</small>
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="firstname" class="block text-sm font-medium text-gray-700">Prénom</label>
+        <input
+          id="firstname"
+          formControlName="firstname"
+          type="text"
+          placeholder="Prénom"
+          class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+        />
+        <div *ngIf="registerForm.get('firstname')?.invalid && registerForm.get('firstname')?.touched" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('firstname')?.errors?.['required']">Prénom est requis.</small>
+        </div>
+      </div>
+  
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          id="email"
+          formControlName="email"
+          type="email"
+          placeholder="Email"
+          class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+        />
+        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('email')?.errors?.['required']">Email est requis.</small>
+          <small *ngIf="registerForm.get('email')?.errors?.['email']">Email invalide.</small>
+        </div>
+      </div>
+  
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
+        <input
+          id="password"
+          formControlName="password"
+          type="password"
+          placeholder="Mot de passe"
+          class="mt-1 block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-[#0D9488] focus:border-[#0D9488] sm:text-sm"
+        />
+        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm mt-1">
+          <small *ngIf="registerForm.get('password')?.errors?.['required']">Mot de passe est requis.</small>
+        </div>
+      </div>
+  
+      <button
+        type="submit"
+        [disabled]="registerForm.invalid"
+        class="w-full bg-[#0D9488] text-white font-bold py-2 px-4 rounded-lg shadow-sm hover:bg-[#0B6D5D] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0D9488] disabled:opacity-50"
+      >
+        S'inscrire
+      </button>
+    </form>
+  </div>
+  </div>
+
+  

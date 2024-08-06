@@ -1,0 +1,25 @@
+<div class="container mx-auto p-6 min-h-screen flex flex-col items-center">
+  <!-- Lien Précédent -->
+  <a (click)="goBack()" class="text-[#0D9488] hover:text-[#0c8c80] text-lg font-bold mb-6 cursor-pointer">
+    &larr; Précédent
+  </a>
+
+    <div *ngIf="trip; else loading" class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8">
+      <h2 class="text-4xl font-bold mb-6">{{ trip.starting_point }} → {{ trip.ending_point }}</h2>
+      <div class="mb-6 space-y-4">
+        <p class="text-lg"><strong>Départ :</strong> {{ trip.starting_at | date: 'short' }}</p>
+        <p class="text-lg"><strong>Places disponibles :</strong> {{ trip.available_places }}</p>
+        <p class="text-lg"><strong>Prix :</strong> {{ trip.price | currency: 'EUR' }}</p>
+        <p class="text-lg"><strong>Auteur :</strong> {{ trip.user.firstname }} {{ trip.user.lastname }}</p>
+      </div>
+      <div class="flex justify-center">
+        <button class="bg-[#0D9488] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0c8c80] text-xl">
+          Réserver
+        </button>
+      </div>
+    </div>
+    <ng-template #loading>
+      <p class="text-center text-2xl">Chargement...</p>
+    </ng-template>
+  </div>
+  

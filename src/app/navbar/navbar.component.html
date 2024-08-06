@@ -1,0 +1,24 @@
+<nav class="bg-[#0D9488] text-white p-4">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="text-2xl font-bold">COCOVOIT</div>
+      <div class="block lg:hidden">
+        <button id="menu-button" class="flex items-center px-3 py-2 border rounded text-white border-white">
+          <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+            <title>Menu</title>
+            <path d="M0 3h20v2H0zM0 9h20v2H0zM0 15h20v2H0z" />
+          </svg>
+        </button>
+      </div>
+      <ul id="menu" class="lg:flex lg:space-x-4">
+        <li><a href="/home" routerLinkActive="active" ariaCurrentWhenActive="page" class="hover:underline">Accueil</a></li>
+        <li><a href="/search" routerLinkActive="active" ariaCurrentWhenActive="page" class="hover:underline">Recherche</a></li>
+        <li><a href="/add-trip" routerLinkActive="active" ariaCurrentWhenActive="page" class="hover:underline">Proposer un trajet</a></li>
+        <li><a href="/contact" routerLinkActive="active" ariaCurrentWhenActive="page" class="hover:underline">Contact</a></li>
+        <li *ngIf="isLoggedIn"><a href="/profile" class="text-white">Profil</a></li>
+        <li *ngIf="isLoggedIn"><a href="#" class="text-white" (click)="onLogout()">Logout</a></li>
+        <li *ngIf="!isLoggedIn"><a href="/login" class="text-white">Login</a></li>
+        <li *ngIf="!isLoggedIn"><a href="/register" class="text-white">Register</a></li>
+      </ul>
+    </div>
+  </nav>
+  

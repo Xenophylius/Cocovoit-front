@@ -44,7 +44,7 @@
   </div>
 
   <!-- Résultats de la recherche -->
-  <div *ngIf="showResults" class="w-full sm:w-5/12">
+  <div *ngIf="showResults" class="w-full sm:w-5/12 max-h-full overflow-scroll">
     <div class="bg-ABC2BF p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-bold mb-4 text-center">Résultats de la recherche</h2>
       <div *ngFor="let trip of trips" class="bg-white p-4 mb-4 rounded-lg shadow-lg cursor-pointer hover:bg-gray-100" (click)="viewTrip(trip.id)">

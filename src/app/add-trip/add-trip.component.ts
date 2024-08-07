@@ -43,7 +43,7 @@ export class AddTripComponent implements OnInit {
       const userId = this.authService.getUserId(); // Assurez-vous que votre authService renvoie l'ID utilisateur
       const tripData = { ...this.addTripForm.value, user_id: userId };
 
-      this.http.post('http://127.0.0.1:8000/api/trip', tripData, { headers }).subscribe({
+      this.http.post('http://cocovoit-back.test/api/trip', tripData, { headers }).subscribe({
         next: () => {
           this.router.navigate(['/home']);
         },

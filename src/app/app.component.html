@@ -12,6 +12,9 @@
       <li><a [routerLink]="'/add-trip'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Proposer un trajet</a></li>
       <li><a [routerLink]="'/contact'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Contact</a></li>
       <li *ngIf="isLoggedIn2" class="text-white hover:underline">
+        <a [routerLink]="'/my-trips'">Mes Trajets</a>
+      </li>
+      <li *ngIf="isLoggedIn2" class="text-white hover:underline">
         <a [routerLink]="['/profile', userId]">Profil</a>
       </li>
       <li *ngIf="isLoggedIn2" class="text-white hover:underline">

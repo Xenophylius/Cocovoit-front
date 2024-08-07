@@ -8,16 +8,36 @@
       <h2 class="text-4xl font-bold mb-6">{{ trip.starting_point }} → {{ trip.ending_point }}</h2>
       <div class="mb-6 space-y-4">
         <p class="text-lg"><strong>Départ :</strong> {{ trip.starting_at | date: 'short' }}</p>
-        <p class="text-lg"><strong>Places disponibles :</strong> {{ trip.available_places }}</p>
+        <p class="text-lg"><strong>Places disponibles :</strong> {{ availablePlaces }} / {{ trip.available_places }} </p>
         <p class="text-lg"><strong>Prix :</strong> {{ trip.price | currency: 'EUR' }}</p>
         <p class="text-lg"><strong>Auteur :</strong> {{ trip.user.firstname }} {{ trip.user.lastname }}</p>
       </div>
-      <div class="flex justify-center">
-        <button class="bg-[#0D9488] text-white font-bold py-3 px-6 rounded-lg hover:bg-[#0c8c80] text-xl">
-          Réserver
-        </button>
+
+      <div id="map" class="w-full h-96 mt-6"></div>
+
+       <!-- Affichage des messages d'erreur et de succès -->
+  <div *ngIf="successMessage" class="mb-4 p-2 text-green-700 bg-green-100 border border-green-300 rounded">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="mb-4 p-2 text-red-700 bg-red-100 border border-red-300 rounded">
+    {{ errorMessage }}
+  </div>
+
+      <div class="mt-6 text-center">
+        <button (click)="reserveTrip(trip.id)"
+        [disabled]="isButtonDisabled()"
+        class="px-4 py-2 rounded-lg font-semibold text-white"
+        [ngClass]="{
+          'bg-blue-500 hover:bg-blue-600': !isButtonDisabled(),
+          'bg-gray-400 cursor-not-allowed': isButtonDisabled()
+        }">
+  Réserver
+</button>
+
       </div>
     </div>
+    
+  
     <ng-template #loading>
       <p class="text-center text-2xl">Chargement...</p>
     </ng-template>

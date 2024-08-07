@@ -8,7 +8,7 @@ import { TripInterface } from './trip-interface';
 })
 export class TripsService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/trip';
+  private apiUrl = 'http://cocovoit-back.test/api/trip';
 
   constructor(private http: HttpClient) { }
 
@@ -18,5 +18,21 @@ export class TripsService {
 
   getTripById(id: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getUserTrips(userId: string): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}?user_id=${userId}`);
+  }
+
+  deleteTrip(tripId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${tripId}`);
+  }
+
+  getTrip(tripId: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${tripId}`);
+  }
+
+  reserveTrip(tripId: number, userId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/${tripId}/reserve`, { userId });
   }
 }

@@ -9,7 +9,7 @@ import { SearchInterface } from './search-interface';
 })
 export class SearchService {
 
-  private apiUrl = 'http://127.0.0.1:8000/api/trips';
+  private apiUrl = 'http://cocovoit-back.test/api/trips';
 
   constructor(private http: HttpClient) { }
 

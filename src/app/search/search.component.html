@@ -53,7 +53,12 @@
           <div class="text-gray-700">
             Départ : {{ trip.starting_at | date:'fullDate' }}
           </div>
+
         </div>
+                          <!-- Afficher la distance -->
+      <div *ngIf="distances[trip.id]" class="mt-2 text-gray-600">
+        Distance : {{ distances[trip.id] | number:'1.0-2' }} km
+      </div>
       </div>
     </div>
   </div>
@@ -67,3 +72,6 @@
     />
   </div>
 </div>
+
+<!-- Carte -->
+<div #map id="map" class="hidden"></div>

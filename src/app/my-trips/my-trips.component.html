@@ -1,0 +1,53 @@
+<div class="max-w-4xl mx-auto p-6 bg-gray-100 min-h-screen">
+    <h1 class="text-3xl font-bold text-gray-900 mb-6 text-center">Mes Trajets</h1>
+  
+    <h2 class="text-2xl font-bold text-gray-900 mb-6">CONDUCTEUR</h2>
+  
+    <div *ngIf="createdTrips.length > 0; else noCreatedTrips" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let trip of createdTrips" 
+           (click)="onTripClick(trip.id)" 
+           class="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105">
+        <img src="/images/conducteur.jpeg" alt="Trip Image" class="w-full h-40 object-cover">
+        <div class="p-4">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Trajet {{ trip.id }}</h2>
+          <p><strong class="font-medium">Départ:</strong> {{ trip.starting_point }}</p>
+          <p><strong class="font-medium">Arrivée:</strong> {{ trip.ending_point }}</p>
+          <p><strong class="font-medium">Date:</strong> {{ trip.starting_at | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong class="font-medium">Prix:</strong> {{ trip.price | currency:'USD' }}</p>
+          <p><strong class="font-medium">Places:</strong> {{ trip.available_places }}</p>
+  
+          <button (click)="deleteTrip(trip.id)" 
+                  class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50 mt-4">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noCreatedTrips>
+      <p class="text-gray-600 text-center">Vous n'avez aucun trajet créé.</p>
+    </ng-template>
+  
+    <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">PASSAGER</h2>
+  
+    <div *ngIf="participatingTrips.length > 0; else noParticipatingTrips" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div *ngFor="let trip of participatingTrips" 
+           (click)="onTripClick(trip.id)" 
+           class="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105">
+        <img src="/images/passager.jpg" alt="Trip Image" class="w-full h-40 object-cover">
+        <div class="p-4">
+          <h2 class="text-xl font-semibold text-gray-800 mb-2">Trajet {{ trip.id }}</h2>
+          <p><strong class="font-medium">Départ:</strong> {{ trip.starting_point }}</p>
+          <p><strong class="font-medium">Arrivée:</strong> {{ trip.ending_point }}</p>
+          <p><strong class="font-medium">Date:</strong> {{ trip.starting_at | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong class="font-medium">Prix:</strong> {{ trip.price | currency:'EUR' }}</p>
+          <p><strong class="font-medium">Places:</strong> {{ trip.available_places }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <ng-template #noParticipatingTrips>
+      <p class="text-gray-600 text-center">Vous ne participez à aucun trajet.</p>
+    </ng-template>
+  </div>
+  

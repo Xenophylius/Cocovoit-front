@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './auth.guard';
 import { TripByIdComponent } from './trip-by-id/trip-by-id.component';
 import { ProfileComponent } from './profile/profile.component';
+import { MyTripsComponent } from './my-trips/my-trips.component';
 
 export const routes: Routes = [
     { path: 'register', component: RegisterComponent },
@@ -17,6 +18,7 @@ export const routes: Routes = [
     { path: 'add-trip', component: AddTripComponent, canActivate: [AuthGuard] },
     { path: 'trip/:id', component: TripByIdComponent, canActivate: [AuthGuard] },
     { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'my-trips', component: MyTripsComponent, canActivate: [AuthGuard] },
     { path: 'contact', component: ContactComponent },
     { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];

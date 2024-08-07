@@ -6,11 +6,15 @@ export interface TripInterface {
     starting_at: string
     created_at: string
     updated_at: string
+    user_id: string
+    participate: number[]
+    price: number
+    available_places: number
     user: User
 }
 
 export interface User {
-    id: number;
+    id: string;
     firstname: string;
     lastname: string;
   }

@@ -1,7 +1,8 @@
-<div class="bg-white h-[60vh] flex justify-around items-center">
+<div class="bg-white h-auto md:h-[60vh] flex flex-col md:flex-row justify-center md:justify-around items-center p-4">
+
   <!-- Formulaire -->
-  <div class="w-full sm:w-1/4 px-2">
-    <div class="bg-white p-6 rounded-lg shadow-lg h-full">
+  <div class="w-full md:w-1/4 px-2 mb-4 md:mb-0">
+    <div class="bg-white p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-bold mb-4 text-center">Recherche un trajet</h2>
       <form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="space-y-4">
         <div>
@@ -44,7 +45,7 @@
   </div>
 
   <!-- Résultats de la recherche -->
-  <div *ngIf="showResults" class="w-full sm:w-5/12 max-h-full overflow-scroll">
+  <div *ngIf="showResults" class="w-full md:w-5/12 max-h-[60vh] overflow-y-auto">
     <div class="bg-ABC2BF p-6 rounded-lg shadow-lg">
       <h2 class="text-2xl font-bold mb-4 text-center">Résultats de la recherche</h2>
       <div *ngFor="let trip of trips" class="bg-white p-4 mb-4 rounded-lg shadow-lg cursor-pointer hover:bg-gray-100" (click)="viewTrip(trip.id)">
@@ -53,18 +54,17 @@
           <div class="text-gray-700">
             Départ : {{ trip.starting_at | date:'fullDate' }}
           </div>
-
         </div>
-                          <!-- Afficher la distance -->
-      <div *ngIf="distances[trip.id]" class="mt-2 text-gray-600">
-        Distance : {{ distances[trip.id] | number:'1.0-2' }} km
-      </div>
+        <!-- Afficher la distance -->
+        <div *ngIf="distances[trip.id]" class="mt-2 text-gray-600">
+          Distance : {{ distances[trip.id] | number:'1.0-2' }} km
+        </div>
       </div>
     </div>
   </div>
 
   <!-- Image -->
-  <div *ngIf="!showResults" class="hidden sm:block w-5/12">
+  <div *ngIf="!showResults" class="hidden md:block md:w-5/12">
     <img
       src="images/covoiturage.jpg"
       alt="Covoiturage"
@@ -74,6 +74,4 @@
 </div>
 
 <!-- Carte -->
-
-  <div #map id="map" class="hidden"></div>
-
+<div #map id="map" class="hidden"></div>

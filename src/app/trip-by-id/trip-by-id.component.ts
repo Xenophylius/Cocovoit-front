@@ -95,7 +95,7 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
   // Géocode les villes pour obtenir les coordonnées
   geocodeLocations(): void {
     if (this.trip.starting_point && this.trip.ending_point) {
-      const geocodeUrl = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=';
+      const geocodeUrl = 'https://nominatim.openstreetmap.org/search.php?format=json&limit=1&q=';
       // Géocode le point de départ
       fetch(geocodeUrl + encodeURIComponent(this.trip.starting_point))
         .then(response => response.json())

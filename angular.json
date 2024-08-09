@@ -33,7 +33,7 @@
             ],
             "scripts": [
               "node_modules/leaflet/dist/leaflet.js",
-              "src/assets/openrouteservice-routing.js"
+             
             ]
           },
           "configurations": {
@@ -102,7 +102,7 @@
             ],
             "scripts": [
               "node_modules/leaflet/dist/leaflet.js",
-              "src/assets/openrouteservice-routing.js"
+             
             ]
           }
         }

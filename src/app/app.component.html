@@ -1,40 +1,72 @@
-<nav class="bg-[#0D9488] p-4">
-  <div class="container mx-auto flex items-center justify-between">
-    <!-- Logo / Covoiturage -->
-    <div class="text-white text-lg font-bold">
-      COCOVOIT
+  <!-- Navigation -->
+  <nav class="bg-[#0D9488] p-4">
+    <div class="container mx-auto flex flex-wrap items-center justify-between">
+      <!-- Logo / Covoiturage -->
+      <div class="text-white text-lg font-bold">
+        COCOVOIT
+      </div>
+      
+      <!-- Menu Button for Mobile View -->
+      <button id="menu-button" class="lg:hidden text-white focus:outline-none" (click)="toggleMenu()">
+        Menu
+      </button>
+      
+      <!-- Menu des liens -->
+      <ul id="menu" class="hidden lg:flex lg:space-x-4">
+        <li><a [routerLink]="'/home'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Accueil</a></li>
+        <li><a [routerLink]="'/search'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Recherche</a></li>
+        <li><a [routerLink]="'/add-trip'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Proposer un trajet</a></li>
+        <li><a [routerLink]="'/contact'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Contact</a></li>
+        <li *ngIf="isLoggedIn2" class="text-white hover:underline">
+          <a [routerLink]="'/my-trips'">Mes Trajets</a>
+        </li>
+        <li *ngIf="isLoggedIn2" class="text-white hover:underline">
+          <a [routerLink]="['/profile', userId]">Profil</a>
+        </li>
+        <li *ngIf="isLoggedIn2" class="text-white hover:underline">
+          <a href="#" (click)="handleLogout()">Logout</a>
+        </li>
+        <li *ngIf="!isLoggedIn2" class="text-white hover:underline">
+          <a [routerLink]="'/login'">Login</a>
+        </li>
+        <li *ngIf="!isLoggedIn2" class="text-white hover:underline">
+          <a [routerLink]="'/register'">Register</a>
+        </li>
+      </ul>
+      
+      <!-- Mobile Menu -->
+      <ul id="mobile-menu" class="lg:hidden flex flex-col absolute top-16 right-4 bg-[#0D9488] text-white p-4 space-y-2 rounded-lg shadow-lg">
+        <li><a [routerLink]="'/home'" routerLinkActive="active" aria-current="page" class="hover:underline">Accueil</a></li>
+        <li><a [routerLink]="'/search'" routerLinkActive="active" aria-current="page" class="hover:underline">Recherche</a></li>
+        <li><a [routerLink]="'/add-trip'" routerLinkActive="active" aria-current="page" class="hover:underline">Proposer un trajet</a></li>
+        <li><a [routerLink]="'/contact'" routerLinkActive="active" aria-current="page" class="hover:underline">Contact</a></li>
+        <li *ngIf="isLoggedIn2">
+          <a [routerLink]="'/my-trips'" class="hover:underline">Mes Trajets</a>
+        </li>
+        <li *ngIf="isLoggedIn2">
+          <a [routerLink]="['/profile', userId]" class="hover:underline">Profil</a>
+        </li>
+        <li *ngIf="isLoggedIn2">
+          <a href="#" (click)="handleLogout()" class="hover:underline">Logout</a>
+        </li>
+        <li *ngIf="!isLoggedIn2">
+          <a [routerLink]="'/login'" class="hover:underline">Login</a>
+        </li>
+        <li *ngIf="!isLoggedIn2">
+          <a [routerLink]="'/register'" class="hover:underline">Register</a>
+        </li>
+      </ul>
     </div>
-    
-    <!-- Menu des liens -->
-    <ul class="flex space-x-4">
-      <li><a [routerLink]="'/home'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Accueil</a></li>
-      <li><a [routerLink]="'/search'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Recherche</a></li>
-      <li><a [routerLink]="'/add-trip'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Proposer un trajet</a></li>
-      <li><a [routerLink]="'/contact'" routerLinkActive="active" aria-current="page" class="text-white hover:underline">Contact</a></li>
-      <li *ngIf="isLoggedIn2" class="text-white hover:underline">
-        <a [routerLink]="'/my-trips'">Mes Trajets</a>
-      </li>
-      <li *ngIf="isLoggedIn2" class="text-white hover:underline">
-        <a [routerLink]="['/profile', userId]">Profil</a>
-      </li>
-      <li *ngIf="isLoggedIn2" class="text-white hover:underline">
-        <a href="#" (click)="handleLogout()">Logout</a>
-      </li>
-      <li *ngIf="!isLoggedIn2" class="text-white hover:underline">
-        <a [routerLink]="'/login'">Login</a>
-      </li>
-      <li *ngIf="!isLoggedIn2" class="text-white hover:underline">
-        <a [routerLink]="'/register'">Register</a>
-      </li>
-    </ul>
-  </div>
-</nav>
+  </nav>
 
-<!-- Example of a menu button for mobile view (if needed) -->
-<button id="menu-button" class="lg:hidden text-white" (click)="toggleMenu()">
-  Menu
-</button>
+  <!-- Main Content -->
+  <main class="flex-grow">
+    <router-outlet></router-outlet>
+  </main>
 
-<main class="main">
-  <router-outlet></router-outlet>
-</main>
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('hidden');
+    }
+  </script>

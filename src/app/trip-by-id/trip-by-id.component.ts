@@ -8,7 +8,7 @@ import * as L from 'leaflet';
 @Component({
   selector: 'app-trip-by-id',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ActivatedRoute],
   templateUrl: './trip-by-id.component.html',
   styleUrls: ['./trip-by-id.component.css']
 })
@@ -23,21 +23,19 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
   startCoords: [number, number] | undefined;
   endCoords: [number, number] | undefined;
 
-  constructor(private tripService: TripsService, private route: ActivatedRoute, private location: Location) {}
+  constructor(
+    private tripService: TripsService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!;
-    this.tripService.getTripById(id).subscribe(
-      (data) => {
-        this.trip = data;
-        this.calculateAvailablePlaces();
-        this.geocodeLocations(); // Commencez à géocoder les villes
-      },
-      (error) => {
-        console.error('Error fetching trip data:', error);
-        this.errorMessage = 'Unable to fetch trip details.';
+    this.route.paramMap.subscribe(params => {
+      this.tripId = +params.get('id')!;
+      if (this.tripId) {
+        this.loadTrip();
       }
-    );
+    });
   }
 
   ngAfterViewInit(): void {
@@ -60,26 +58,21 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
 
   reserveTrip(tripId: number): void {
     const userId = Number(localStorage.getItem('userId'));
-    console.log(this.trip.user_id, userId);
     if (tripId && userId) {
       if (this.trip.user_id === userId) {
-        console.error('Vous ne pouvez pas réserver votre propre trajet.');
         this.errorMessage = 'Vous ne pouvez pas réserver votre propre trajet.';
         return;
       }
       this.tripService.reserveTrip(tripId, userId).subscribe(
         response => {
-          console.log('Réservation réussie:', response);
-          this.loadTrip(); // Recharger les détails du trajet pour refléter les changements
+          this.loadTrip();
           this.successMessage = 'Réservation réussie !';
         },
         error => {
-          console.error('Erreur lors de la réservation:', error);
           this.errorMessage = 'Vous avez déjà réservé ce trajet.';
         }
       );
     } else {
-      console.error('ID utilisateur ou ID trajet non disponibles.');
       this.errorMessage = 'ID utilisateur ou ID trajet non disponibles.';
     }
   }
@@ -88,15 +81,14 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
     return this.availablePlaces <= 0;
   }
 
-  // Géocode les villes pour obtenir les coordonnées
   geocodeLocations(): void {
-    if (this.trip.starting_point && this.trip.ending_point) {
+    if (this.trip?.starting_point && this.trip?.ending_point) {
       const geocodeUrl = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=';
       // Géocode le point de départ
       fetch(geocodeUrl + encodeURIComponent(this.trip.starting_point))
         .then(response => response.json())
         .then(data => {
-          if (data && data.length > 0) {
+          if (data.length > 0) {
             this.startCoords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
           }
           // Géocode le point d'arrivée
@@ -104,7 +96,7 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
         })
         .then(response => response.json())
         .then(data => {
-          if (data && data.length > 0) {
+          if (data.length > 0) {
             this.endCoords = [parseFloat(data[0].lat), parseFloat(data[0].lon)];
             if (this.startCoords && this.endCoords) {
               this.initMap(); // Initialise la carte après avoir obtenu les coordonnées
@@ -117,7 +109,6 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // Initialise la carte Leaflet
   initMap(): void {
     if (this.startCoords && this.endCoords) {
       this.map = L.map('map').setView(this.startCoords, 13);
@@ -138,20 +129,16 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
 
   loadTrip(): void {
     if (this.tripId) {
-      this.tripService.getTrip(this.tripId).subscribe(
+      this.tripService.getTripById(this.tripId).subscribe(
         data => {
           this.trip = data;
-          this.calculateAvailablePlaces();  
-          this.successMessage = ''; // Réinitialiser les messages
-          this.errorMessage = '';
+          this.calculateAvailablePlaces();
+          this.geocodeLocations(); // Commencez à géocoder les villes
         },
         error => {
-          console.error('Erreur lors de la récupération du trajet:', error);
           this.errorMessage = 'Erreur lors de la récupération du trajet. Veuillez réessayer.';
         }
       );
     }
   }
-
-  
 }

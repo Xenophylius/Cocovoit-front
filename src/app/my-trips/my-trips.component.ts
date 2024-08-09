@@ -3,11 +3,14 @@ import { TripsService } from '../trips.service';
 import { CommonModule } from '@angular/common';
 import { TripInterface } from '../trip-interface';
 import { Router } from '@angular/router';
+import { TripRatingComponent } from '../trip-rating/trip-rating.component';
+import { RateTripComponent } from '../rate-trip/rate-trip.component';
+import { RatingService } from '../rating.service';
 
 @Component({
   selector: 'app-my-trips',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TripRatingComponent, RateTripComponent],
   templateUrl: './my-trips.component.html',
   styleUrls: ['./my-trips.component.css']
 })
@@ -16,7 +19,7 @@ export class MyTripsComponent implements OnInit {
   createdTrips: TripInterface[] = []; // Les trajets créés par l'utilisateur
   participatingTrips: TripInterface[] = []; // Les trajets auxquels l'utilisateur participe
 
-  constructor(private tripService: TripsService, private router: Router) { }
+  constructor(private tripService: TripsService, private router: Router, private ratingService: RatingService) { }
 
   ngOnInit(): void {
     // Convertir userId en nombre ou null si non disponible
@@ -63,5 +66,23 @@ export class MyTripsComponent implements OnInit {
         }
       );
     }
+  }
+
+    // Vérifiez si l'utilisateur a déjà noté le trajet
+    hasRated(tripId: number): boolean {
+      let hasRated = false;
+      if (this.userId) {
+        this.ratingService.hasRated(tripId, localStorage.getItem('userId')).subscribe(rated => {
+          hasRated = rated;
+        });
+      }
+      return hasRated;
+    }
+
+      // Méthode pour vérifier si la date du trajet est passée
+  isTripDatePassed(startingAt: string): boolean {
+    const tripDate = new Date(startingAt);
+    const currentDate = new Date();
+    return tripDate < currentDate;
   }
 }

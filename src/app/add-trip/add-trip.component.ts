@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { environment } from '../../environments/environment.development';
 
 @Component({
   selector: 'app-add-trip',
@@ -43,7 +44,7 @@ export class AddTripComponent implements OnInit {
       const userId = this.authService.getUserId(); // Assurez-vous que votre authService renvoie l'ID utilisateur
       const tripData = { ...this.addTripForm.value, user_id: userId };
 
-      this.http.post('http://cocovoit-back.test/api/trip', tripData, { headers }).subscribe({
+      this.http.post(environment.apiURL + 'trip', tripData, { headers }).subscribe({
         next: () => {
           this.router.navigate(['/home']);
         },

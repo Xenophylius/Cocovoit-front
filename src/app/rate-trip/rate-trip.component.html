@@ -1,0 +1,45 @@
+<div class="bg-white p-6 rounded-lg shadow-md max-w-md mx-auto">
+    <h2 class="text-2xl font-bold text-gray-800 mb-4 text-center">Évaluer le trajet</h2>
+    
+    <form [formGroup]="ratingForm" (ngSubmit)="submitRating(tripId)" class="space-y-4">
+      <div>
+        <label class="block text-gray-700 font-medium mb-2">Note (1 à 5):</label>
+        <div class="flex items-center space-x-1">
+          <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+            <svg
+              (click)="setRating(star)"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+              class="w-8 h-8 cursor-pointer transition-colors duration-150"
+              [ngClass]="{
+                'text-yellow-400': ratingForm.get('rating')?.value >= star,
+                'text-gray-300': ratingForm.get('rating')?.value < star
+              }"
+              [class.hover:text-yellow-400]="true"
+            >
+              <path
+                d="M12 2.75l2.97 6.02 6.67.97-4.83 4.71 1.14 6.66L12 18.49l-5.95 3.13 1.14-6.66L2.35 9.74l6.67-.97L12 2.75z"
+              />
+            </svg>
+          </ng-container>
+        </div>
+        <p *ngIf="ratingForm.controls['rating'].invalid && ratingForm.controls['rating'].touched" class="text-red-500 text-sm mt-2">
+          Veuillez sélectionner une note.
+        </p>
+      </div>
+      
+      <button 
+        type="submit" 
+        [disabled]="ratingForm.invalid" 
+        class="w-full bg-[#F8B25B] text-white py-2 rounded-lg shadow-md hover:bg-orange-500 transition duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed"
+      >
+        Soumettre
+      </button>
+      
+      <p *ngIf="submissionStatus" class="text-green-500 text-sm mt-4 text-center">
+        {{ submissionStatus }}
+      </p>
+    </form>
+  </div>
+  

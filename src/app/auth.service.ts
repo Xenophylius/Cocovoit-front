@@ -5,12 +5,13 @@ import { NavbarService } from './navbar.service';
 import { Observable, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { LoginResponse } from './login-response';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://cocovoit-back.test/api';
+  private apiUrl = environment.apiURL;
 
   constructor(
     private http: HttpClient,
@@ -19,7 +20,7 @@ export class AuthService {
   ) {}
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password }).pipe(
+    return this.http.post<LoginResponse>(`${this.apiUrl}login`, { email, password }).pipe(
       tap(response => {
         localStorage.setItem('authToken', response.token);
         localStorage.setItem('userId', response.userId); // Assurez-vous que `response.userId` contient l'ID de l'utilisateur
@@ -34,7 +35,7 @@ export class AuthService {
   }
 
   register(userData: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/user`, userData).pipe(
+    return this.http.post(`${this.apiUrl}user`, userData).pipe(
       catchError(error => {
         console.error('Erreur lors de l\'inscription:', error);
         return of(null); // Retourner un observable vide en cas d'erreur

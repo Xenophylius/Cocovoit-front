@@ -31,9 +31,8 @@
     <h2 class="text-2xl font-bold text-gray-900 mt-12 mb-6">PASSAGER</h2>
   
     <div *ngIf="participatingTrips.length > 0; else noParticipatingTrips" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div *ngFor="let trip of participatingTrips" 
-           (click)="onTripClick(trip.id)" 
-           class="bg-white shadow-lg rounded-lg overflow-hidden cursor-pointer transition-transform transform hover:scale-105">
+      <div *ngFor="let trip of participatingTrips"
+           class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform">
         <img src="/images/passager.jpg" alt="Trip Image" class="w-full h-40 object-cover">
         <div class="p-4">
           <h2 class="text-xl font-semibold text-gray-800 mb-2">Trajet {{ trip.id }}</h2>
@@ -42,6 +41,17 @@
           <p><strong class="font-medium">Date:</strong> {{ trip.starting_at | date:'dd/MM/yyyy HH:mm' }}</p>
           <p><strong class="font-medium">Prix:</strong> {{ trip.price | currency:'EUR' }}</p>
           <p><strong class="font-medium">Places:</strong> {{ trip.available_places }}</p>
+          <p 
+  (click)="onTripClick(trip.id)" 
+  class="cursor-pointer text-blue-600 hover:text-blue-800 font-medium underline hover:no-underline transition duration-150 ease-in-out"
+>
+  Voir plus
+</p>
+
+<ng-container *ngIf="isTripDatePassed(trip.starting_at)">
+  <app-trip-rating [tripId]="trip.id"></app-trip-rating>
+  <app-rate-trip [tripId]="trip.id"></app-rate-trip>
+</ng-container>
         </div>
       </div>
     </div>

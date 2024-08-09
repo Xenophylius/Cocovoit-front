@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment.development';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  private apiUrl = 'http://cocovoit-back.test/api/user';
+  private apiUrl = environment.apiURL + 'user';
 
   constructor(private http: HttpClient) { }
 

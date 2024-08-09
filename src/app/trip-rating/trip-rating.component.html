@@ -1,0 +1,10 @@
+<div *ngIf="averageRating !== null; else noRatings" class="flex items-center space-x-2 pt-4">
+    <p class="text-lg font-semibold text-gray-800">Notes :</p>
+    <p class="text-yellow-500 text-xl font-bold">{{ averageRating | number:'1.1-1' }}</p>
+    <span class="text-lg text-gray-600">/ 5</span>
+  </div>
+  
+  <ng-template #noRatings>
+    <p class="text-gray-500 italic">Aucune note pour ce trajet.</p>
+  </ng-template>
+  

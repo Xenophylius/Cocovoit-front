@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TripInterface } from './trip-interface';
+import { environment } from '../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TripsService {
 
-  private apiUrl = 'http://cocovoit-back.test/api/trip';
+  private apiUrl = environment.apiURL + 'trip';
 
   constructor(private http: HttpClient) { }
 

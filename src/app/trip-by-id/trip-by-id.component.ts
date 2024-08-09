@@ -8,7 +8,7 @@ import * as L from 'leaflet';
 @Component({
   selector: 'app-trip-by-id',
   standalone: true,
-  imports: [CommonModule, ActivatedRoute],
+  imports: [CommonModule],
   templateUrl: './trip-by-id.component.html',
   styleUrls: ['./trip-by-id.component.css']
 })

@@ -4,11 +4,12 @@ import { NavbarService } from './navbar.service';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, HttpClientModule],
+  imports: [CommonModule, RouterOutlet, RouterLink, RouterLinkActive, HttpClientModule, RouterModule, Router],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

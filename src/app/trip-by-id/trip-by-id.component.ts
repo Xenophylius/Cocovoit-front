@@ -1,14 +1,15 @@
 import { Component, OnInit, AfterViewInit, Inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { TripsService } from '../trips.service';
 import { Location } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import * as L from 'leaflet';
 
 @Component({
   selector: 'app-trip-by-id',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './trip-by-id.component.html',
   styleUrls: ['./trip-by-id.component.css']
 })

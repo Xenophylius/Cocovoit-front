@@ -54,5 +54,10 @@ export class AppComponent implements OnInit {
 
   toggleMenu(): void {
     this.menuVisible = !this.menuVisible;
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenu) {
+      mobileMenu.classList.toggle('translate-x-full', !this.menuVisible);
+    }
   }
+
 }

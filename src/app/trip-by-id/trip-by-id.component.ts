@@ -27,18 +27,21 @@ export class TripByIdComponent implements OnInit, AfterViewInit {
   constructor(private tripService: TripsService, private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
-    const id = +this.route.paramMap.get('id')!;
-    this.tripService.getTripById(id).subscribe(
-      (data) => {
-        this.trip = data;
-        this.calculateAvailablePlaces();
-        this.geocodeLocations(); // Commencez à géocoder les villes
-      },
-      (error) => {
-        console.error('Error fetching trip data:', error);
-        this.errorMessage = 'Unable to fetch trip details.';
-      }
-    );
+    this.route.paramMap.subscribe(params => {
+      const id = +params.get('id')!;
+      this.tripId = id;
+      this.tripService.getTripById(id).subscribe(
+        (data) => {
+          this.trip = data;
+          this.calculateAvailablePlaces();
+          this.geocodeLocations();
+        },
+        (error) => {
+          console.error('Error fetching trip data:', error);
+          this.errorMessage = 'Unable to fetch trip details.';
+        }
+      );
+    });
   }
 
   ngAfterViewInit(): void {
